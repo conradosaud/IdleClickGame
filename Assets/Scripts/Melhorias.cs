@@ -58,7 +58,9 @@ public class Melhorias : MonoBehaviour
             textoQuantidadeClicadores.text = GameManager.clicadores.ToString();
             textoValorClicadores.text = "$ "+GameManager.custoClicador.ToString();
 
+            GameManager.SalvarJogo();
         }
+
         else
         {
             // Se não houver dinheiro, apenas mostra uma mensagem
@@ -87,6 +89,7 @@ public class Melhorias : MonoBehaviour
         textoQuantidadeMultiplicador.text = GameManager.multiplicadores.ToString();
         textoValorMultiplicador.text = "$ " + GameManager.custoMultiplicador.ToString();
 
+        GameManager.SalvarJogo() ;
     }
 
 }
