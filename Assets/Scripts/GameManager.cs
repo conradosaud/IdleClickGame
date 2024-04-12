@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 
 /// <summary>
@@ -24,8 +26,18 @@ public class GameManager : MonoBehaviour
     // texto do dinheiro exista para funcionar. Então deve ser iniciado com certeza antes de todos
     private void Awake()
     {
+        CarregarJogo();
+
         // Pega o texto de dinheiro que está na tela
         textoDinheiro = GameObject.Find("Canvas").transform.Find("Dinheiro").GetComponent<TextMeshProUGUI>();
+
+        if (ExisteSave())
+        {
+            custoClicador = clicadores * (int)Math.Floor(custoClicador * 1.25f);
+            custoMultiplicador = multiplicadores * (int)Math.Floor(custoMultiplicador * 1.25f);
+
+        }
+         AutoSave();
     }
 
     // A variável de dinheiro poderia ser alterada diretamente, porém ao usar esta função,
@@ -36,4 +48,46 @@ public class GameManager : MonoBehaviour
         textoDinheiro.text = "$ " + GameManager.dinheiro.ToString();
     }
 
+    /// ----------
+
+    public static void SalvarJogo()
+    {
+        PlayerPrefs.SetInt("dinheiro", dinheiro);
+        PlayerPrefs.SetInt("clicadores",clicadores);
+        PlayerPrefs.SetInt("multiplicador", multiplicadores);
+        PlayerPrefs.Save();
+        Debug.Log("Jogo salvo com sucesso");
+    }
+
+    public void CarregarJogo()
+    {
+        if(ExisteSave() == false)
+        {
+            return;
+        }
+
+        dinheiro = PlayerPrefs.GetInt("dinheiro");
+        clicadores = PlayerPrefs.GetInt("clicadores");
+        multiplicadores = PlayerPrefs.GetInt("multiplicadores");
+    }
+    //FUNCAO DE RETORNO
+    bool ExisteSave()
+    {
+        if (PlayerPrefs.HasKey("dinheiro") == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    void AutoSave()
+    {
+        SalvarJogo();
+        Invoke("AutoSave", 5);
+    }
+
 }
+
