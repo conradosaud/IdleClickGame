@@ -21,6 +21,7 @@ public class Melhorias : MonoBehaviour
     private void Start()
     {
 
+
         // Obtém todos os campos de texto do Canvas que serão utilizados neste script
         canvasMelhorias = GameObject.Find("Canvas").transform.Find("Melhorias").transform;
         
@@ -57,7 +58,8 @@ public class Melhorias : MonoBehaviour
             // Exibe as alterações na tela do Canvas
             textoQuantidadeClicadores.text = GameManager.clicadores.ToString();
             textoValorClicadores.text = "$ "+GameManager.custoClicador.ToString();
-
+            
+            GameManager.SalvarJogo();
         }
         else
         {
@@ -86,7 +88,7 @@ public class Melhorias : MonoBehaviour
         GameManager.custoMultiplicador = (int)Math.Floor(GameManager.custoMultiplicador * 1.25f);
         textoQuantidadeMultiplicador.text = GameManager.multiplicadores.ToString();
         textoValorMultiplicador.text = "$ " + GameManager.custoMultiplicador.ToString();
-
+        
+        GameManager.SalvarJogo();
     }
-
 }

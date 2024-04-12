@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -26,6 +27,20 @@ public class GameManager : MonoBehaviour
     {
         // Pega o texto de dinheiro que está na tela
         textoDinheiro = GameObject.Find("Canvas").transform.Find("Dinheiro").GetComponent<TextMeshProUGUI>();
+        CarregarJogo();
+
+        if (ExisteSave())
+        {
+            custoMultiplicador = multiplicadores * (int)Math.Floor(custoMultiplicador * 1.25f);
+            custoClicador = clicadores * (int)Math.Floor(custoClicador * 1.25f);
+        }
+        
+        AutoSave();
+    }
+
+    private void OnApplicationQuit()
+    {
+        SalvarJogo();
     }
 
     // A variável de dinheiro poderia ser alterada diretamente, porém ao usar esta função,
@@ -36,4 +51,38 @@ public class GameManager : MonoBehaviour
         textoDinheiro.text = "$ " + GameManager.dinheiro.ToString();
     }
 
+    //--------------------------------//
+
+    public static void SalvarJogo()
+    {
+        PlayerPrefs.SetInt("dinheiro", dinheiro);
+        PlayerPrefs.SetInt("clicadores", clicadores);
+        PlayerPrefs.SetInt("multiplicadores", multiplicadores);
+        PlayerPrefs.Save();
+    }
+
+    public void CarregarJogo()
+    {
+        if (ExisteSave() == false)
+            return;
+        dinheiro = PlayerPrefs.GetInt("dinheiro");
+        clicadores = PlayerPrefs.GetInt("clicadores");
+        multiplicadores = PlayerPrefs.GetInt("multiplicadores");
+    }
+    bool ExisteSave()
+    {
+        if(PlayerPrefs.HasKey("dinheiro") == true)
+        {
+            return true;
+        }else
+        { 
+            return false; 
+        }
+    }
+
+    void AutoSave()
+    {
+        SalvarJogo();
+        Invoke("AutoSave", 10);
+    }
 }
