@@ -40,6 +40,9 @@ public class Melhorias : MonoBehaviour
 
     public void ComprarClicador()
     {
+
+        
+
         // Verifica se tem dinheiro suficiente para a compra
         if( GameManager.dinheiro >= GameManager.custoClicador)
         {
@@ -58,12 +61,15 @@ public class Melhorias : MonoBehaviour
             textoQuantidadeClicadores.text = GameManager.clicadores.ToString();
             textoValorClicadores.text = "$ "+GameManager.custoClicador.ToString();
 
+            GameManager.SalvarJogo();
+
         }
         else
         {
             // Se não houver dinheiro, apenas mostra uma mensagem
             ToastNotification.Show("Dinheiro insuficiente...", 1.5f, "error");
         }
+
     }
 
     // O multiplicador faz exatamente as mesmas coisas dos clicadores.
@@ -86,6 +92,8 @@ public class Melhorias : MonoBehaviour
         GameManager.custoMultiplicador = (int)Math.Floor(GameManager.custoMultiplicador * 1.25f);
         textoQuantidadeMultiplicador.text = GameManager.multiplicadores.ToString();
         textoValorMultiplicador.text = "$ " + GameManager.custoMultiplicador.ToString();
+
+        GameManager.SalvarJogo();
 
     }
 
