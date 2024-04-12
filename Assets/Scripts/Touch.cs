@@ -33,4 +33,6 @@ public class Touch : MonoBehaviour, IPointerClickHandler
         Invoke("AcionaClicador", 2);
     }
 
+
+
 }
