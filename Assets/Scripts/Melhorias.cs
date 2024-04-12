@@ -40,9 +40,12 @@ public class Melhorias : MonoBehaviour
 
     public void ComprarClicador()
     {
+
+
         // Verifica se tem dinheiro suficiente para a compra
         if( GameManager.dinheiro >= GameManager.custoClicador)
         {
+
             // Exibe uma mensage na tela usando um pacote muito bom chamado ToastNotificationMessage
             // Baixe ele na Unity Asset Store e faça uma avaliação de 5 estrelas, pq é mto bom msm sério
             ToastNotification.Show("Compra realizada com sucesso!", "success");
@@ -58,6 +61,7 @@ public class Melhorias : MonoBehaviour
             textoQuantidadeClicadores.text = GameManager.clicadores.ToString();
             textoValorClicadores.text = "$ "+GameManager.custoClicador.ToString();
 
+            GameManager.SalvarJogo();
         }
         else
         {
@@ -87,6 +91,7 @@ public class Melhorias : MonoBehaviour
         textoQuantidadeMultiplicador.text = GameManager.multiplicadores.ToString();
         textoValorMultiplicador.text = "$ " + GameManager.custoMultiplicador.ToString();
 
+        GameManager.SalvarJogo() ;
     }
 
 }
