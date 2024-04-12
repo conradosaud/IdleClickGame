@@ -58,6 +58,9 @@ public class Melhorias : MonoBehaviour
             textoQuantidadeClicadores.text = GameManager.clicadores.ToString();
             textoValorClicadores.text = "$ "+GameManager.custoClicador.ToString();
 
+
+            GameManager.SalvarJogo();
+
         }
         else
         {
@@ -86,6 +89,8 @@ public class Melhorias : MonoBehaviour
         GameManager.custoMultiplicador = (int)Math.Floor(GameManager.custoMultiplicador * 1.25f);
         textoQuantidadeMultiplicador.text = GameManager.multiplicadores.ToString();
         textoValorMultiplicador.text = "$ " + GameManager.custoMultiplicador.ToString();
+
+        GameManager.SalvarJogo();
 
     }
 
